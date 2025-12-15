@@ -1,0 +1,13 @@
+name: tau-app
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - rdkit
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - pip
+  - pip:
+      - streamlit

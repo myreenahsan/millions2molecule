@@ -1,0 +1,20 @@
+FROM continuumio/miniconda3
+
+# Create conda environment
+COPY environment.yml /tmp/environment.yml
+RUN conda env create -f /tmp/environment.yml
+
+# Make sure the environment is activated by default
+SHELL ["conda", "run", "-n", "tau-app", "/bin/bash", "-c"]
+
+# Set working directory
+WORKDIR /app
+
+# Copy app code
+COPY app.py /app/app.py
+
+# Expose the port Streamlit will run on (HF Spaces usually uses 7860)
+EXPOSE 7860
+
+# Run Streamlit when the container starts
+CMD ["conda", "run", "--no-capture-output", "-n", "tau-app", "streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0"]
